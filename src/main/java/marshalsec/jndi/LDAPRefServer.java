@@ -105,6 +105,7 @@ public class LDAPRefServer {
         @Override
         public void processSearchResult ( InMemoryInterceptedSearchResult result ) {
             String base = result.getRequest().getBaseDN();
+//            String source = result.
             Entry e = new Entry(base);
             try {
                 sendResult(result, base, e);
@@ -118,7 +119,7 @@ public class LDAPRefServer {
 
         protected void sendResult ( InMemoryInterceptedSearchResult result, String base, Entry e ) throws LDAPException, MalformedURLException {
             URL turl = new URL(this.codebase, this.codebase.getRef().replace('.', '/').concat(".class"));
-            System.out.println("Send LDAP reference result for " + base + " redirecting to " + turl);
+            System.out.println("["+ result.getRequest().getAttributeList() + "] Send LDAP reference result for " + base + " redirecting to " + turl);
             e.addAttribute("javaClassName", "foo");
             String cbstring = this.codebase.toString();
             int refPos = cbstring.indexOf('#');
